@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+
+\title{Literature Summary}
+\author{Adam Gibbs}
+\date{March 2020}
+
+\begin{document}
+
+\maketitle
+
+\section{Latent Space Models and the Random Dot Product Model}
+Different models emerge as different networks with different properties emerge. 
+In this sense, latent space models were first proposed in 2002 by Hoff, Raftery, and Handcock [2]. They were developed in response to ideas of "social space" being discussed and its notion that actors are more likely to know other actors who are connected to their neighbors in a graph. To model this, latent models assign random positions in space and the probability two actors are connected is related to their distance from each other in space. A common implementation of this is comparing the distance between two points in space represented by vectors of an arbitrary dimension. Latent space concepts became popular when geometry was used in attempt to mimic characteristics of networks not found in other graph models such as directed cycles and non-uniform associativity [1]. Another advantage to these models is that they also provide simpler ways to visualize graphs.  
+
+Extending off of other latent models and their concepts, Kraetzl, Nickel and Scheinerman, and Tucker added semantic information and proposed the Random Dot Product Model (RDPM) [3]. In the RDPM, nodes are characterized by random vectors in d-dimensional space, $\mathbb{R}^d$. The vectors are formed by drawing $\mathtt{d}$ real numbers from a selected distribution. The probability that a node is connected to another node is given by the dot product of the two vectors and then a transformation that maps the dot product to the interval $\mathbb{R}$[0,1] [4]. In its simplest form, the vectors are drawn from the distribution $\frac{1}{\sqrt{d}} U^\alpha[0,1]$ (The uniform distribution raised to the $\alpha$ power where $\alpha > 0$) and the dot product is mapped to [0,1] by the identity map. The distribution and transformation can be varied to change the properties of the graph as long as they map to valid probabilities [3]. 
+
+The idea behind using the dot product as the probability two nodes are connected is that the dot product encodes two forms of "similarity." Both the angle between two vectors and the magnitude of the vectors factor into the dot product, so vectors of similar magnitude and direction are therefore more alike, and have a higher probability of being connected. So when creating a random graph, the RDPM creates random nodes first, and then connects them based on their similarity [3].
+
+RDPM graphs mimic many of the characteristics of real graphs. It was proven that RDPM graphs have an effective diameter of at most 5 as the number of nodes $N$ approaches $\infty$. Further, we see a power law degree distribution emerge (it was found that bends in the power law could be created by altering $\alpha$, the power of the Uniform distribution when sampling) and the clustering of nodes [4].
+However the RDPM has limitations. The most obvious being that it is relatively dense with its edge density being on the order of $\Omega(N^2)$, whereas, most real networks are sparse. This limitation, however, simply narrows the use of the RDPM. It is used most commonly with social networks as social networks become more and more dense, ultimately making the density of the RDPM desirable.
+
+Overall, the RDPM provides a relatively simple and computationally efficient to make dense random graphs that match most of the characteristics of real graphs. This highlights the nature of many random graph models as they all carry their own strengths and limitations and scenarios where they accurately model real graphs. Realtive to the Kronecker Graph Model, the RDPM fails to consistently reproduce a range of real graphs, but when it comes to the specific case of dense social networks, the RDPM is very effective.  
+
+\section{References}
+
+\begin{thebibliography}{9}
+\bibitem{geomPaper} 
+Flaxman, A.D., Frieze, A.M., Vera, J.: A geometric preferential attachment model
+of networks. Internet Math. 3(2) (2006) 187–205.
+
+\bibitem{latentSpacePaper} 
+Hoff, P. D., Raftery, A. E. and Handcock, M. S. (2002). Latent space approaches to social network analysis. Journal of the American Statistical Association 97 1090–1098.
+
+\bibitem{OrigRdpmPaper} 
+Kraetzl, M., Nickel, C., Scheinerman, E.R.: Random dot product graphs: A model
+for social netowrks. Preliminary Manuscript (2005)
+
+\bibitem{RdpmPaper}
+S. J. Young and E. R. Scheinerman. Random dot product graph models for social networks. In
+WAW ’07: Proceedings of the 5th Workshop On Algorithms And Models For The Web-Graph,
+pages 138–149, 2007.
+\end{thebibliography}
+
+
+\end{document}
